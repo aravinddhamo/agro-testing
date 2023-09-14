@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: aks-nodejs-argocd
+  namespace: argocd
+spec:
+  destination:
+    namespace: flask
+    server: "https://kubernetes.default.svc"
+  source:
+    path: kubernetes
+    repoURL: "https://github.com/aravinddhamo/agro-testing"
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: false
+      selfHeal: false
